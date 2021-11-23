@@ -123,4 +123,4 @@ export class ItemsController{
 }
 ```
 
-restart the application and you should get the same response as above.
+Restart the application and you should get the same response as above.
