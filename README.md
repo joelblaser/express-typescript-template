@@ -75,3 +75,19 @@ Now start the application.
 ```sh
 npm run start:dev
 ```
+
+As soon as the server is started you can test the application by visiting http://localhost:3000/api/items.
+You should get the following response.
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Item 1"
+  },
+  {
+    "id": 2,
+    "name": "Item 2"
+  }
+]
+```
