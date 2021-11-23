@@ -1,13 +1,30 @@
-import express from 'express';
-import { config } from './config/config';
+import express, { Express, Router } from 'express';
+import { config } from './config';
 import cors from 'cors';
+import { attachControllers } from '@decorators/express';
 
-const app = express();
+export class Application {
+  app: Express;
 
-app.use(express.json());
+  constructor() {
+    this.app = express();
+    this.setup();
+  }
 
-app.use(cors());
+  setup(): void {
+    this.app.use(cors());
+    this.app.use(express.json());
 
-app.listen(config.port, () => {
-  console.log(`[Info] Server listening on http://localhost:${config.port}`);
-});
+    const router = Router();
+    attachControllers(router, [
+      /* Controllers */
+    ]);
+    this.app.use('/api', router);
+  }
+
+  start(): void {
+    this.app.listen(config.port, () => {
+      console.log(`[Info] Server listening on http://localhost:${config.port}`);
+    });
+  }
+}
