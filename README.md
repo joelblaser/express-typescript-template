@@ -76,7 +76,7 @@ Now start the application.
 npm run start:dev
 ```
 
-As soon as the server is started you can test the application by visiting http://localhost:3000/api/items.
+As soon as the server is started you can test the application by visiting http://localhost:5000/api/items.
 You should get the following response.
 
 ```json
