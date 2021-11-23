@@ -27,8 +27,6 @@ import { Response } from 'express';
 
 @Controller('/items')
 export class ItemsController{
-  constructor(private readonly itemsService: ItemsService){}
-
   @Get('/')
   async getItems(@Res() res: Response): Promise<void> {
     res.json([{ id: 1, name: 'Item 1' }, { id: 2, name: 'Item 2' }]);
@@ -91,3 +89,38 @@ You should get the following response.
   }
 ]
 ```
+
+## Adding a injectable service
+
+Create a new Service like the following example.
+
+```ts
+import { Injectable } from '@decorators/di';
+
+@Injectable()
+export class ItemsService {
+  getItems(): Item[] {
+    return [{ id: 1, name: 'Item 1' }, { id: 2, name: 'Item 2' }];
+  }
+}
+```
+
+Afterwards inject the service into the controller.
+
+```ts
+import { Inject } from '@decorators/di';
+import { Controller, Get, Response as Res } from '@decorators/express';
+import { Response } from 'express';
+
+@Controller('/items')
+export class ItemsController{
+  constructor(@Inject(ItemsService) private itemsService: ItemsService){}
+
+  @Get('/')
+  async getItems(@Res() res: Response): Promise<void> {
+    res.json(this.itemsService.getItems());
+  }
+}
+```
+
+restart the application and you should get the same response as above.
